@@ -30,13 +30,13 @@ a single fluid; therefore, it is common to name the fluid ``fluid``. This is ill
 .. |mix_Eq| replace:: :math:`\mu_{mix} = \sum_{\alpha=1}^{N} \frac{X_{\alpha} \mu_{\alpha}}{\sum_{\beta} X_{\beta} \phi_{\alpha \beta}}`
 
 Here is a quick inline eq test for |Sato_Eq|. What does this look like? What if we don't use the replace feature and just
-put the in-line eq like so :math:`Re = \rho_g U L / \mu_g`?
+put the in-line eq like so $Re = \rho_g U L / \mu_g$?
 
 Or what about a separate eq like this: 
 
-.. math::
+
    
-   \mu_{mix} = \sum_{\alpha=1}^{N} \frac{X_{\alpha} \mu_{\alpha}}{\sum_{\beta} X_{\beta} \phi_{\alpha \beta}}
+$$\mu_{mix} = \sum_{\alpha=1}^{N} \frac{X_{\alpha} \mu_{\alpha}}{\sum_{\beta} X_{\beta} \phi_{\alpha \beta}}$$
 
 
 
