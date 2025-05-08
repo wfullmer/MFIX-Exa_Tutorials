@@ -21,34 +21,34 @@ These tutorials are provided in an attempt help new users come up to speed
 with MFIX-Exa. The results, discussions, and opinions are not peer-reviewed 
 and should not cited as part of the scientific record. 
 Please report any corrections, bugs, issues, suggestions, etc. on the 
-(MFIX-Exa User Forum)[https://mfix.netl.doe.gov/forum/c/mfix-exa].
+[MFIX-Exa User Forum](https://mfix.netl.doe.gov/forum/c/mfix-exa).
 However, there should be no expectation that we will have time to 
 help with issues related to these tutorials. There is also no guarentee that 
-these inputs are up-to-date with the current release of the code. 
+these inputs are up to date with the current release of the code. 
 
 
 ## Table of Contents
-1. Introduction
-2. Fluid-Only
-   2.1 (Lid-Driven Cavity)[fluid/lid-driven_cavity/README.md] 
-   2.2 Pipe Flow 
-   2.3 Backward Facing Step
-3. Granular
-   3.1 Normal Collisions
-   3.2 Oblique Collisions
-   3.4 Homogeneous Cooling System (HCS) 
-   3.5 Static Pile?
-   3.6 Hopper?  
-4. CFD-DEM & PIC
-   4.1 Rectangular Fluidized Bed (Mueller)
-   4.2 Hot Rectangular FB (Patil)
-   4.3 Adsorbing FB
-   4.4 "TGA" Tests (abad + MGAS + others? or just do Abad in a geom?)
-   4.5 Cylinderical FB (or use a filtered drag model for PIC?)
-   4.5 Baby CFB
-5. PIC-to-DEM
-   5.1 
-
+* Introduction
+* Fluid-Only
+  - (Lid-Driven Cavity)[fluid/lid-driven_cavity/README.md] 
+  - Pipe Flow 
+  - Backward Facing Step
+* Granular
+  - Normal Collisions
+  - Oblique Collisions
+  - Homogeneous Cooling System (HCS) 
+  - Static Pile?
+  - Hopper?  
+* CFD-DEM & PIC
+  - Rectangular Fluidized Bed (Mueller)
+  - Hot Rectangular FB (Patil)
+  - Adsorbing FB
+  - "TGA" Tests (abad + MGAS + others? or just do Abad in a geom?)
+  - Cylinderical FB (or use a filtered drag model for PIC?)
+  - Baby CFB
+* PIC-to-DEM
+  - Example FB
+  - TBD 
 
 
 ## Acknowlegdment 
@@ -58,22 +58,3 @@ Thanks to the MFIX-Exa users
 (especially those who publish and those who provide feedback on the forum), 
 the MFIX-Exa PI, Jordan Musser, the SBE TPL Mary Ann Clarke, 
 and the MFIX-Exa development team, past and present.
-
-- Ann S. Almgren 
-- Oscar Antepara 
-- John B. Bell
-- Johannes Blaschke
-- William D. Fullmer
-- Kevin Gott
-- Aaron Lattanzi
-- Mark Meredith 
-- Jordan Musser
-- Andrew Myers 
-- Roberto Porcu
-- Deepak Rangarajan
-- Michele Rosso 
-- Ishan Srivastava 
-- Charles Waldman
-- Hengjie Wang
-- Weiqun Zhang
- 
