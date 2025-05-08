@@ -1,6 +1,7 @@
 # MFIX-Exa_Tutorials
 
-`rgb(9, 105, 218)` Preliminary -- Do not cite or quote.
+> [!WARNING]
+> Preliminary -- Do not cite or quote.
 
 ## Disclaimer (NETL Boilerplate)
 
