@@ -30,7 +30,7 @@ these inputs are up to date with the current release of the code.
 ## Table of Contents
 * Introduction
 * Fluid-Only
-  - (Lid-Driven Cavity)[fluid/lid-driven_cavity/README.md] 
+  - [Lid-Driven Cavity](fluid/lid-driven_cavity/README.md)
   - Pipe Flow 
   - Backward Facing Step
 * Granular
