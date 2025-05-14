@@ -1,0 +1,158 @@
+#----------------------------------------------------------------------
+# amrex settings
+#----------------------------------------------------------------------
+amrex.fpe_trap_invalid  = 1
+amrex.fpe_trap_zero     = 1
+amrex.fpe_trap_overflow = 1
+
+amrex.abort_on_out_of_gpu_memory = 0 #true
+
+amrex.the_arena_is_managed = 0 #true
+
+
+#----------------------------------------------------------------------
+# Run settings
+#----------------------------------------------------------------------
+mfix.steady_state     = 1
+mfix.steady_state_tol = 8.0e-06
+
+mfix.do_initial_proj = true
+mfix.initial_iterations = 3
+
+
+#----------------------------------------------------------------------
+# Solver settings
+#----------------------------------------------------------------------
+# use defaults
+
+
+#----------------------------------------------------------------------
+# Model settings
+#----------------------------------------------------------------------
+mfix.constraint      = "IncompressibleFluid"
+
+mfix.gravity =  0.0   0.0   0.0
+
+#----------------------------------------------------------------------
+# Geometry / grids / tiles
+#----------------------------------------------------------------------
+
+# Maximum level in hierarchy (for now must be 0, i.e., one level in total)
+amr.max_level = 0
+
+# Domain
+geometry.coord_sys   = 0                     # 0: Cartesian
+geometry.is_periodic = 0      0      1       # Is periodic in each direction?
+geometry.prob_lo     = 0.     0.     0.      # lo corner of physical domain
+geometry.prob_hi     = 0.1    0.1    0.025   # hi corner of physical domain
+
+# Number of grid cells in each direction at the coarsest level
+#amr.n_cell =  64  64  16
+amr.n_cell =  32  32  8
+
+amr.blocking_factor = 4
+
+# Fluid grids: maximum allowable size of each fluid subdomain
+amr.max_grid_size_x =  1024
+amr.max_grid_size_y =  1024
+amr.max_grid_size_z =  1024
+
+# Fluid tiles (omp threads): Maximum tile size within each grid
+fabarray.mfiter_tile_size = 1024 1024 1024
+
+
+#----------------------------------------------------------------------
+# IO / Checkpointing
+#----------------------------------------------------------------------
+mfix.par_ascii_int  = -1
+mfix.par_ascii_file ="vis"
+
+mfix.plot_int       = 1
+mfix.plot_file      = "plt"
+
+mfix.check_int      = -1
+mfix.check_file     ="chk"
+
+# data to plot
+mfix.plt_regtest = 0
+mfix.plt_vel_g   = 1
+mfix.plt_p_g     = 1
+
+#----------------------------------------------------------------------
+# Fluid model
+#----------------------------------------------------------------------
+fluid.solve = fluid
+
+fluid.viscosity.molecular          = constant
+fluid.viscosity.molecular.constant = 1.0e-3
+
+
+#----------------------------------------------------------------------
+# DEM model settings
+#----------------------------------------------------------------------
+dem.solve = None
+
+
+#----------------------------------------------------------------------
+# PIC model settings
+#----------------------------------------------------------------------
+pic.solve = None
+
+
+#----------------------------------------------------------------------
+# EB model settings
+#----------------------------------------------------------------------
+mfix.levelset__refinement = 1    # levelset resolution (to the particles)
+mfix.write_eb_surface = false    # Needed to output eb-surfaces
+
+mfix.grid_pruning = false
+amr.refine_grid_layout = false
+
+mfix.geometry = box
+
+box.Lo = 0.0  0.0  -0.1
+box.Hi = 0.1  0.1   0.2
+
+box.offset = 1.0e-12
+
+eb2.small_volfrac = 0.001
+
+
+#----------------------------------------------------------------------
+# Regions
+#----------------------------------------------------------------------
+mfix.regions = full-domain  top-wall
+
+regions.full-domain.lo =  0.0   0.0   0.0
+regions.full-domain.hi =  0.1   0.1   0.025
+
+regions.top-wall.lo    =  0.0   0.099 0.0
+regions.top-wall.hi    =  0.1   0.1   0.025
+
+
+#----------------------------------------------------------------------
+# Initial Conditions
+#----------------------------------------------------------------------
+ic.regions = full-domain
+
+# background fluid
+ic.full-domain.fluid.volfrac   =  1.0
+ic.full-domain.fluid.density   =  1.0
+ic.full-domain.fluid.pressure  =  0.0
+ic.full-domain.fluid.velocity  = 0.0  0.0  0.0
+
+
+#----------------------------------------------------------------------
+# Boundary Conditions
+#----------------------------------------------------------------------
+bc.regions = top-wall
+
+bc.top-wall = eb
+bc.top-wall.eb.normal_tol = 3.0 #deg
+bc.top-wall.eb.normal =  0.0 -1.0  0.0
+
+bc.top-wall.fluid.volfrac  =  1.0
+bc.top-wall.fluid.density  =  1.0
+bc.top-wall.fluid.velocity =  1.0  0.0  0.0
+
+
