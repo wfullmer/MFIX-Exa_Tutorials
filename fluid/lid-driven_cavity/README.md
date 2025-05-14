@@ -58,7 +58,88 @@ which sets a density of
 ```
 ic.full-domain.fluid.density   =  1.0
 ```
-By default, EBs are treated as no-slip walls (NSWs).
+By default, EBs are treated as no-slip walls (NSWs). so we just need to define the top "driving" wall.
+As mentioned previously, MFIX-Exa does not (currently) support moving EBs.
+However, we can "fake it" by making the top wall a mass inflow, specifically a  "flow-on-eb"
+type of BC. The entire BC region is given by:
+```
+bc.regions = top-wall
+
+bc.top-wall = eb
+bc.top-wall.eb.normal_tol = 3.0 #deg
+bc.top-wall.eb.normal =  0.0 -1.0  0.0
+
+bc.top-wall.fluid.volfrac  =  1.0
+bc.top-wall.fluid.density  =  1.0
+bc.top-wall.fluid.velocity =  1.0  0.0  0.0
+```
+This says that there is only one BC, named "top-wall," the BC type is `eb` meaning that we
+are specifying a flow BC *on* the EB, and it is specified with a normal of `0 -1  0`, i.e., in the
+negative $y$ direction (pointing into the domain) with a tolerance of $\pm 3^\circ$. The
+velocity is set perpendicular to the normal, in the positive $x$ direction, `1.0  0.0  0.0`,
+i.e., $u = U = 1$ m/s at the top of the box. Frankly, I'm a little surprised this works. But it
+does, trust me.
+
+
+## Running the first simulation
+Feel free to read through the input deck and check keywords against the [user
+guide](https://mfix.netl.doe.gov/doc/mfix-exa/guide/latest/), but you probably have a
+reasonable enough grasp on what is going on to just go ahead and run a first
+simulation. Assuming you've cloned this repo that you're reading right now, start by
+`cd`'ing into the lid-driven cavity directory, link or copy your MFIX-Exa executable
+into the run directory, copy the run directory to something meaningful and run it, e.g.:
+```
+cd fluid/lid-driven_cavity/
+ln -s $HOME/<path-to-my-build-dir>/mfix ./run/mfix
+cp -r run/ init
+cd init/
+./mfix inputs
+```
+You should notice that it runs fast like way too fast. Examining the screen output,
+we can see that it took just two steps of timestep `dt = 1e+14`, no flow was
+induced within the domain, `max(abs(u/v/w/p))  = 0  0  0  0` and, hence, it "converged" to
+the IC. Obviously, this is not the solution we want.
+
+> [!CAUTION]
+> If you are thinking, Wait this guy wrote tutorials and the very first one
+> doesn't even work out of the box? WTH! Well... MFIX-Exa is a research-grade code. It has
+> a bit of a steep learning curve, it is not always friendly to use, and it is not at all
+> friendly to modify/develop. I believe it is worthwhile to start with some
+>  troubleshooting right from the start.
+
+[^2] While not shown here, if you increase the fluid resolution, e.g., to `64 \times 64`, it still takes the maximum timestep of $10^{14}$ s, but diverges in initial iterations instead of returning zeros. In this case, you can set a maximum timestep so that the CFL isn't egregiously violated on the first step and it will run successfully without needing to add a second IC region. I am not sure what causes the different behavior, but this is somewhat of an edge case using the code not really in the way that it is intended, so I have not investigated.
+
+## Fixing the simulation
+There are probably a few ways to solve
+this issue, but the method that I prefer because it is somewhat robust[^2], is to introduce
+a second IC region with velocity $u(x,t=0) = U$ so that the code "realizes" what the approximate
+velocity should be and sets a CFL-limited timestep accordingly. So, clean this directory or
+copy a new one and use your editor of choice to make some changes to the inputs.
+First, we will have to add a new region to the `mfix.regions` list. I'm going to call it `near-wall`,
+but you can call it whatever you want (no white space or special characters).
+For completeness, your line should now look like, e.g.:
+```
+mfix.regions = full-domain  top-wall  near-wall
+```
+Now we need to define the 3D cuboid region on which the IC will be applied.
+There is probably a lot of flexibility in this, but I decided to select the four fluid cells
+closest to the top but stopping 4 fluid cells from the left or right side of the `box` EB.
+The new region (following my naming convention) looks like this:
+```
+regions.near-wall.lo    =  0.0125   0.0875  0.0
+regions.near-wall.hi    =  0.0875   0.1     0.025
+```
+Next, we'll need to add this region to the ICs list, e.g.,
+```
+
+```
+> [!TIP]
+> Default hierarchy of ICs is by the appearance in this list. In other words, the second
+> region is set over the first, the third over the second, and so on. So if you place the
+> `new-wall` region before the `full-domain` region in the `ic.regions` list, it will not be
+> applied. (More specifically, it will be applied but then over-written by the `full-domain`
+> values which covers the `near-wall` region in its entirety.)
+
 
 
 
