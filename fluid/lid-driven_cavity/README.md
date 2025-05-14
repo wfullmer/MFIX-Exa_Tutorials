@@ -12,9 +12,9 @@ many codes. A sketch of the problem is given below:
 ![Sketch of the lid-driven cavity](figs/sketch.png)
 
 The case is defined by just one dimensionless group, the Reynolds number:
-$$
+```math
 Re = \frac{\rho_f U L}{\mu_f}
-$$
+```
 where $\rho_f$ and $\mu_f$ are the fluid density and material viscosity, $L$ is the length of
 the square cavity, and $U$ is the velocity of the lid, i.e., the "top" boundary condition (BC).
 To start, we'll target a Reynolds number of $Re = 100$. In the [inputs](./run/inputs) provided,
